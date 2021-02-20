@@ -11,7 +11,7 @@
 
 #include <lists.h>
 
-typedef enum {STATE_UNINIT, STATE_INIT, STATE_ACTIVE, STATE_SLEEPING, STATE_SUSPENDED} sJobState_t;
+typedef enum {STATE_UNINIT, STATE_ACTIVE, STATE_SLEEPING, STATE_SUSPENDED} sJobState_t;
 
 struct sSchedStruct_t;
 
@@ -22,16 +22,16 @@ typedef struct sJobStruct_t
 
     int delay;
     int period;
+    int priority;
     sJobState_t state;
 
     struct sSchedStruct_t* schedReference;
     sLinkedListItem_t schedListItem;
-    sLinkedListItem_t globalListItem;
-
+    
     char* name;
 } sJob_t;
 
-sJob_t sched_createJob(void (*function)(void*), void* args, int delay, int period, char* name);
+sJob_t sched_createJob(void (*function)(void*), void* args, int delay, int period, int priority, sJobState_t initialState, char* name);
 
 void sched_setJobFunction(sJob_t* job, void (*function)(void*), void* args);
 void sched_setJobDelay(sJob_t* job, int delay);

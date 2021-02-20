@@ -21,8 +21,6 @@ typedef struct sSchedStruct_t
     sLinkedList_t activeJobList[CFG_NUMBER_OF_PRIORITIES];
     sLinkedList_t sleepingJobList;
     sLinkedList_t suspendedJobList;
-    
-    sLinkedList_t globalListItem;
 
     int jobCount;
 } sSched_t;
@@ -32,10 +30,11 @@ void sched_stopJob(sJob_t* job);
 
 void sched_suspendJob(sJob_t* job);
 void sched_activateJob(sJob_t* job);
+void sched_changeJobPriority(sJob_t* job, int priority);
 
 void sched_run(sSched_t* scheduler);
+void sched_tick(sSched_t* scheduler);
 
-sJob_t* sched_getCurrentJob(sSched_t* scheduler);
 int sched_getJobCount(sSched_t* scheduler);
 
 #endif
