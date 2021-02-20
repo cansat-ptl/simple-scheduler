@@ -9,6 +9,7 @@
 #include <sched.h>
 #include <jobs.h>
 #include <lists.h>
+#include <stddef.h>
 
 sJob_t sched_createJob(void (*function)(void*), void* args, int delay, int period, int priority, sJobState_t initialState, char* name)
 {
@@ -17,6 +18,7 @@ sJob_t sched_createJob(void (*function)(void*), void* args, int delay, int perio
     newJob.function = function;
     newJob.args = args;
     newJob.delay = delay;
+    newJob.period = period;
 
     if (priority > CFG_NUMBER_OF_PRIORITIES-1) {
         newJob.priority = CFG_NUMBER_OF_PRIORITIES-1;
@@ -34,6 +36,11 @@ sJob_t sched_createJob(void (*function)(void*), void* args, int delay, int perio
 
     newJob.schedReference = NULL;
     newJob.state = initialState;
+
+    newJob.schedListItem.list = NULL;
+    newJob.schedListItem.data = NULL;
+    newJob.schedListItem.next = NULL;
+    newJob.schedListItem.prev = NULL;
 
     return newJob;
 }

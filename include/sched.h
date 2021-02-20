@@ -16,14 +16,14 @@
 
 typedef struct sSchedStruct_t 
 {
-    sJob_t* currentJob;
-
     sLinkedList_t activeJobList[CFG_NUMBER_OF_PRIORITIES];
     sLinkedList_t sleepingJobList;
     sLinkedList_t suspendedJobList;
 
     int jobCount;
 } sSched_t;
+
+void sched_initScheduler(sSched_t* scheduler);
 
 void sched_startJob(sSched_t* scheduler, sJob_t* job);
 void sched_stopJob(sJob_t* job);

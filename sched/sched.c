@@ -9,6 +9,7 @@
 #include <sched.h>
 #include <jobs.h>
 #include <lists.h>
+#include <stddef.h>
 
 void sched_startJob(sSched_t* scheduler, sJob_t* job)
 {
@@ -131,6 +132,9 @@ void sched_tick(sSched_t* scheduler)
             if (head->data != NULL) {
                 if (((sJob_t*)(head->data))->delay <= 0) {
                     sched_activateJob((sJob_t*)(head->data));
+                }
+                else {
+                    ((sJob_t*)(head->data))->delay--;
                 }
             }
             head = head->next;
