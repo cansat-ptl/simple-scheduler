@@ -104,9 +104,9 @@ void sched_run(sSched_t* scheduler)
 {
     for (int i = CFG_NUMBER_OF_PRIORITIES-1; i >= 0; i--) {
         sLinkedListItem_t* head = scheduler->activeJobList[i].head;
-		if (head != NULL) {
+        if (head != NULL) {
             sched_listDropFront(&(scheduler->activeJobList[i]));
-			if (head->data != NULL) {
+            if (head->data != NULL) {
                 if (head->data->function != NULL) {
                     (head->data->function)(head->data->args); /* Call job function with its args */
                 }
@@ -119,9 +119,9 @@ void sched_run(sSched_t* scheduler)
                     sched_sleepJob(head->data);
                 }
             }
-			break;
-		}
-	}
+            break;
+        }
+    }
 }
 
 void sched_tick(sSched_t* scheduler)
