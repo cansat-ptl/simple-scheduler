@@ -10,7 +10,7 @@ MCU=atmega128
 INCLUDES = -I"./include"
 
 # Project directories
-SRCDIR = sched
+SRCDIR = sched tests
 BUILDDIR = build
 TARGDIR = bin
 
@@ -45,7 +45,7 @@ OBJDUMP_LSS_FLAGS = -h -S
 #-------------------------------------------------------------------------------
 
 # Automatically find all source files
-SRCS = $(call rwildcard, $(SRCDIR)/,*.c) main.c util.c
+SRCS = $(call rwildcard, $(SRCDIR)/,*.c)
 ASM_SRCS = $(call rwildcard, $(SRCDIR)/,*.S)
 
 # Generate build directory structure
