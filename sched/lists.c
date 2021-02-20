@@ -9,7 +9,7 @@
 #include <lists.h>
 #include <stddef.h>
 
-void common_listAddBack(sLinkedList_t* list, sLinkedListItem_t* item)
+void sched_listAddBack(sLinkedList_t* list, sLinkedListItem_t* item)
 {
 	if (list != NULL && item != NULL) {
 		item->next = NULL;
@@ -30,7 +30,7 @@ void common_listAddBack(sLinkedList_t* list, sLinkedListItem_t* item)
 	return;
 }
 
-void common_listDropBack(sLinkedList_t* list)
+void sched_listDropBack(sLinkedList_t* list)
 {
 	if (list != NULL) {
 		if (list->tail != NULL) {
@@ -53,7 +53,7 @@ void common_listDropBack(sLinkedList_t* list)
 	return;
 }
 
-void common_listAddFront(sLinkedList_t* list, sLinkedListItem_t* item)
+void sched_listAddFront(sLinkedList_t* list, sLinkedListItem_t* item)
 {
 	if (list != NULL && item != NULL) {
 		item->next = list->head;
@@ -74,7 +74,7 @@ void common_listAddFront(sLinkedList_t* list, sLinkedListItem_t* item)
 	return;
 }
 
-void common_listDropFront(sLinkedList_t* list)
+void sched_listDropFront(sLinkedList_t* list)
 {
 	if (list != NULL) {
 		if (list->head != NULL) {
@@ -97,15 +97,15 @@ void common_listDropFront(sLinkedList_t* list)
 	return;
 }
 
-void common_listDeleteAny(sLinkedList_t* list, sLinkedListItem_t* item)
+void sched_listDeleteAny(sLinkedList_t* list, sLinkedListItem_t* item)
 {
 	if (list != NULL && item != NULL) {
 		if (list->head == item) {
-			common_listDropFront(list);
+			sched_listDropFront(list);
 		}
 		else {
 			if (list->tail == item) {
-				common_listDropBack(list);
+				sched_listDropBack(list);
 			}
 			else {
 				if (item->next != NULL) {

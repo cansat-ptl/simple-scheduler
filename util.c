@@ -25,7 +25,7 @@ void uart_putc(char c)
 	while (!(UCSR0A & (1<<UDRE)));
 }
 
-void uart_puts(char * msg)
+void uart_puts(const char * msg)
 {
 	int i = 0;
 	while (msg[i] != '\0') {

@@ -10,7 +10,7 @@
 #include <stddef.h>
 #include "util.h"
 
-volatile sSched_t sched0;
+sSched_t sched0;
 
 void testJob0(void* args)
 {

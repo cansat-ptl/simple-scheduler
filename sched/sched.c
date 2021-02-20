@@ -15,20 +15,20 @@ void sched_startJob(sSched_t* scheduler, sJob_t* job)
 {
     if (scheduler != NULL && job != NULL) {
         if (job->state != STATE_UNINIT) {
-            common_listDeleteAny(job->schedListItem.list, &(job->schedListItem));
+            sched_listDeleteAny(job->schedListItem.list, &(job->schedListItem));
             job->schedReference = scheduler;
             job->schedListItem.data = job;
             scheduler->jobCount++;
 
             switch(job->state) {
                 case STATE_ACTIVE:
-                    common_listAddBack(&(scheduler->activeJobList[job->priority]), &(job->schedListItem));
+                    sched_listAddBack(&(scheduler->activeJobList[job->priority]), &(job->schedListItem));
                     break;
                 case STATE_SUSPENDED:
-                    common_listAddBack(&(scheduler->suspendedJobList), &(job->schedListItem));
+                    sched_listAddBack(&(scheduler->suspendedJobList), &(job->schedListItem));
                     break;
                 case STATE_SLEEPING:
-                    common_listAddBack(&(scheduler->sleepingJobList), &(job->schedListItem));
+                    sched_listAddBack(&(scheduler->sleepingJobList), &(job->schedListItem));
                     break;
                 default:
                     /* do nothing */
@@ -41,7 +41,7 @@ void sched_startJob(sSched_t* scheduler, sJob_t* job)
 void sched_stopJob(sJob_t* job)
 {
     if (job != NULL) {
-        common_listDeleteAny(job->schedListItem.list, &(job->schedListItem));
+        sched_listDeleteAny(job->schedListItem.list, &(job->schedListItem));
         if (job->schedReference != NULL) {
             job->schedReference->jobCount--;
             job->schedReference = NULL;
@@ -53,8 +53,8 @@ void sched_suspendJob(sJob_t* job)
 {
     if (job != NULL) {
         if (job->schedReference != NULL) {
-            common_listDeleteAny(job->schedListItem.list, &(job->schedListItem));
-            common_listAddBack(&(job->schedReference->suspendedJobList), &(job->schedListItem));
+            sched_listDeleteAny(job->schedListItem.list, &(job->schedListItem));
+            sched_listAddBack(&(job->schedReference->suspendedJobList), &(job->schedListItem));
             job->state = STATE_SUSPENDED;
         }
     }
@@ -64,8 +64,8 @@ static void sched_sleepJob(sJob_t* job)
 {
     if (job != NULL) {
         if (job->schedReference != NULL) {
-            common_listDeleteAny(job->schedListItem.list, &(job->schedListItem));
-            common_listAddBack(&(job->schedReference->sleepingJobList), &(job->schedListItem));
+            sched_listDeleteAny(job->schedListItem.list, &(job->schedListItem));
+            sched_listAddBack(&(job->schedReference->sleepingJobList), &(job->schedListItem));
             job->state = STATE_SLEEPING;
         }
     }
@@ -75,8 +75,8 @@ void sched_activateJob(sJob_t* job)
 {
     if (job != NULL) {
         if (job->schedReference != NULL) {
-            common_listDeleteAny(job->schedListItem.list, &(job->schedListItem));
-            common_listAddBack(&(job->schedReference->activeJobList[job->priority]), &(job->schedListItem));
+            sched_listDeleteAny(job->schedListItem.list, &(job->schedListItem));
+            sched_listAddBack(&(job->schedReference->activeJobList[job->priority]), &(job->schedListItem));
             job->state = STATE_ACTIVE;
         }
     }
@@ -105,18 +105,18 @@ void sched_run(sSched_t* scheduler)
     for (int i = CFG_NUMBER_OF_PRIORITIES-1; i >= 0; i--) {
         sLinkedListItem_t* head = scheduler->activeJobList[i].head;
 		if (head != NULL) {
-            common_listDropFront(&(scheduler->activeJobList[i]));
+            sched_listDropFront(&(scheduler->activeJobList[i]));
 			if (head->data != NULL) {
-                if (((sJob_t*)(head->data))->function != NULL) {
-                    (((sJob_t*)(head->data))->function)(((sJob_t*)(head->data))->args); /* Call job function with its args */
+                if (head->data->function != NULL) {
+                    (head->data->function)(head->data->args); /* Call job function with its args */
                 }
 
-                if (((sJob_t*)(head->data))->period == 0) {
-                    sched_suspendJob((sJob_t*)(head->data));
+                if (head->data->period == 0) {
+                    sched_suspendJob(head->data);
                 }
                 else {
-                    ((sJob_t*)(head->data))->delay = ((sJob_t*)(head->data))->period;
-                    sched_sleepJob((sJob_t*)(head->data));
+                    head->data->delay = head->data->period;
+                    sched_sleepJob(head->data);
                 }
             }
 			break;
@@ -130,11 +130,11 @@ void sched_tick(sSched_t* scheduler)
         sLinkedListItem_t* head = scheduler->sleepingJobList.head;
         while (head != NULL) {
             if (head->data != NULL) {
-                if (((sJob_t*)(head->data))->delay <= 0) {
-                    sched_activateJob((sJob_t*)(head->data));
+                if (head->data->delay <= 0) {
+                    sched_activateJob(head->data);
                 }
                 else {
-                    ((sJob_t*)(head->data))->delay--;
+                    head->data->delay--;
                 }
             }
             head = head->next;

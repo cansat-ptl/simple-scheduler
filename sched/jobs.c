@@ -11,7 +11,7 @@
 #include <lists.h>
 #include <stddef.h>
 
-sJob_t sched_createJob(void (*function)(void*), void* args, int delay, int period, int priority, sJobState_t initialState, char* name)
+sJob_t sched_createJob(void (*function)(void*), void* args, int delay, int period, int priority, sJobState_t initialState, const char* name)
 {
     sJob_t newJob;
 
@@ -107,9 +107,9 @@ int sched_getJobPeriod(sJob_t* job)
     return result;
 }
 
-char* sched_getJobName(sJob_t* job)
+const char* sched_getJobName(sJob_t* job)
 {
-    char* result = NULL;
+    const char* result = NULL;
 
     if (job != NULL) {
         result = job->name;

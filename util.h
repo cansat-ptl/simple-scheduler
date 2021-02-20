@@ -23,7 +23,7 @@
 
 void uart_init();
 void uart_putc(char c);
-void uart_puts(char * msg);
+void uart_puts(const char * msg);
 void arch_setupSystickTimer();
 void arch_startSystickTimer();
 
