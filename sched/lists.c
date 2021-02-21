@@ -6,7 +6,7 @@
  */
 
 
-#include <lists.h>
+#include <scheduler/lists.h>
 #include <stddef.h>
 
 void sched_listAddBack(sLinkedList_t* list, sLinkedListItem_t* item)

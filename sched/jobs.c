@@ -6,9 +6,9 @@
  */
 
 
-#include <sched.h>
-#include <jobs.h>
-#include <lists.h>
+#include <scheduler/sched.h>
+#include <scheduler/jobs.h>
+#include <scheduler/lists.h>
 #include <stddef.h>
 
 sJob_t sched_createJob(void (*function)(void*), void* args, int delay, int period, int priority, sJobState_t initialState, const char* name)

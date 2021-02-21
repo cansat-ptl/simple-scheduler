@@ -17,8 +17,8 @@ extern "C" {
 
 #define CFG_NUMBER_OF_PRIORITIES 8
 
-#include <lists.h>
-#include <jobs.h>
+#include <scheduler/lists.h>
+#include <scheduler/jobs.h>
 
 typedef struct sSchedStruct_t 
 {

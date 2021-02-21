@@ -6,7 +6,7 @@
  */
 
 
-#include <sched.h>
+#include <scheduler/sched.h>
 #include <stddef.h>
 #include "util.h"
 

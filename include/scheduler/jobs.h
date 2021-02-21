@@ -13,7 +13,7 @@
 extern "C" {
 #endif
 
-#include <lists.h>
+#include <scheduler/lists.h>
 
 typedef enum {STATE_UNINIT, STATE_ACTIVE, STATE_SLEEPING, STATE_SUSPENDED} sJobState_t;
 

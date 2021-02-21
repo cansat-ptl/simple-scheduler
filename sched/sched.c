@@ -6,9 +6,9 @@
  */
 
 
-#include <sched.h>
-#include <jobs.h>
-#include <lists.h>
+#include <scheduler/sched.h>
+#include <scheduler/jobs.h>
+#include <scheduler/lists.h>
 #include <stddef.h>
 
 void sched_startJob(sSched_t* scheduler, sJob_t* job)
