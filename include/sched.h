@@ -9,6 +9,8 @@
 #ifndef SCHED_SCHED_H_
 #define SCHED_SCHED_H_
 
+#define LIBSCHED_VERSION "1.0.0"
+
 #define CFG_NUMBER_OF_PRIORITIES 8
 
 #include <lists.h>

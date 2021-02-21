@@ -62,12 +62,11 @@ void sched_suspendJob(sJob_t* job)
 
 static void sched_sleepJob(sJob_t* job)
 {
-    if (job != NULL) {
-        if (job->schedReference != NULL) {
-            sched_listDeleteAny(job->schedListItem.list, &(job->schedListItem));
-            sched_listAddBack(&(job->schedReference->sleepingJobList), &(job->schedListItem));
-            job->state = STATE_SLEEPING;
-        }
+    if (job->schedReference != NULL) {
+        job->delay = job->period;
+        sched_listDeleteAny(job->schedListItem.list, &(job->schedListItem));
+        sched_listAddBack(&(job->schedReference->sleepingJobList), &(job->schedListItem));
+        job->state = STATE_SLEEPING;
     }
 }
 
@@ -115,7 +114,6 @@ void sched_run(sSched_t* scheduler)
                     sched_suspendJob(head->data);
                 }
                 else {
-                    head->data->delay = head->data->period;
                     sched_sleepJob(head->data);
                 }
             }
