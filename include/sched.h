@@ -9,6 +9,10 @@
 #ifndef SCHED_SCHED_H_
 #define SCHED_SCHED_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define LIBSCHED_VERSION "1.0.0"
 
 #define CFG_NUMBER_OF_PRIORITIES 8
@@ -38,5 +42,9 @@ void sched_run(sSched_t* scheduler);
 void sched_tick(sSched_t* scheduler);
 
 int sched_getJobCount(sSched_t* scheduler);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

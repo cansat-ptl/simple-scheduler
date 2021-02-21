@@ -9,6 +9,10 @@
 #ifndef SCHED_LISTS_H_
 #define SCHED_LISTS_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define sched_LISTITEM_STRUCT_SIZE (sizeof(struct sListItemStruct_t)
 
 typedef struct sLinkedListStruct_t sLinkedList_t;
@@ -35,5 +39,9 @@ void sched_listAddFront(sLinkedList_t* list, sLinkedListItem_t* item);
 void sched_listDropBack(sLinkedList_t* list);
 void sched_listDropFront(sLinkedList_t* list);
 void sched_listDeleteAny(sLinkedList_t* list, sLinkedListItem_t* item);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

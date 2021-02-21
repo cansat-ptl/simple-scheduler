@@ -9,6 +9,10 @@
 #ifndef SCHED_JOBS_H_
 #define SCHED_JOBS_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <lists.h>
 
 typedef enum {STATE_UNINIT, STATE_ACTIVE, STATE_SLEEPING, STATE_SUSPENDED} sJobState_t;
@@ -43,5 +47,9 @@ int sched_getJobDelay(sJob_t* job);
 int sched_getJobPeriod(sJob_t* job);
 const char* sched_getJobName(sJob_t* job);
 sJobState_t sched_getJobState(sJob_t* job);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
