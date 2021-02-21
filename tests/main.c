@@ -11,6 +11,10 @@
 #include "util.h"
 
 sSched_t sched0;
+sJob_t job0; 
+sJob_t job1;
+sJob_t job2;
+sJob_t job3;
 
 void testJob0(void* args)
 {
@@ -38,10 +42,10 @@ int main()
     arch_setupSystickTimer();
 
     uart_puts("Scheduler test\r\n");
-    sJob_t job0 = sched_createJob(testJob0, NULL, 500, 500, 1, STATE_ACTIVE, "test 0");
-    sJob_t job1 = sched_createJob(testJob1, NULL, 500, 0, 3, STATE_ACTIVE, "test 1");
-    sJob_t job2 = sched_createJob(testJob2, NULL, 500, 1500, 3, STATE_ACTIVE, "test 2");
-    sJob_t job3 = sched_createJob(testJob3, NULL, 500, 2500, 4, STATE_ACTIVE, "test 3");
+    job0 = sched_createJob(testJob0, NULL, 500, 500, 1, STATE_ACTIVE, "test 0");
+    job1 = sched_createJob(testJob1, NULL, 500, 0, 3, STATE_ACTIVE, "test 1");
+    job2 = sched_createJob(testJob2, NULL, 500, 1500, 3, STATE_ACTIVE, "test 2");
+    job3 = sched_createJob(testJob3, NULL, 500, 2500, 4, STATE_ACTIVE, "test 3");
 
     sched_startJob(&sched0, &job0);
     sched_startJob(&sched0, &job1);
@@ -52,7 +56,13 @@ int main()
     arch_ENABLE_INTERRUPTS();
 
     while(1) {
+        uint8_t sreg = arch_STATUS_REG;
+	    arch_DISABLE_INTERRUPTS();
+        
         sched_run(&sched0);
+
+        arch_ENABLE_INTERRUPTS();
+        arch_STATUS_REG = sreg;
     }
 }
 
