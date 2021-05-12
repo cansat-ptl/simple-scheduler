@@ -13,7 +13,7 @@
 extern "C" {
 #endif
 
-#define sched_LISTITEM_STRUCT_SIZE (sizeof(struct sListItemStruct_t)
+#define sched_LISTITEM_STRUCT_SIZE (sizeof(struct sListItemStruct_t))
 
 typedef struct sLinkedListStruct_t sLinkedList_t;
 typedef struct sListItemStruct_t sLinkedListItem_t;
