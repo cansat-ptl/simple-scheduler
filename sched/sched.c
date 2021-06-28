@@ -122,7 +122,7 @@ void sched_changeJobPriority(sJob_t* job, int priority)
                 job->priority = priority;
             }
         }
-        sched_startJob(job->schedReference, job);
+        sched_restartJob(job->schedReference, job);
 
         sched_exitCriticalSection();
     }
