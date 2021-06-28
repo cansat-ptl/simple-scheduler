@@ -27,6 +27,7 @@ typedef struct sJobStruct_t
     int delay;
     int period;
     int priority;
+    int repeats;
     sJobState_t state;
 
     struct sSchedStruct_t* schedReference;
@@ -35,7 +36,9 @@ typedef struct sJobStruct_t
     const char* name;
 } sJob_t;
 
-sJob_t sched_createJob(void (*function)(void*), void* args, int delay, int period, int priority, sJobState_t initialState, const char* name);
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 void sched_setJobFunction(sJob_t* job, void (*function)(void*), void* args);
 void sched_setJobDelay(sJob_t* job, int delay);

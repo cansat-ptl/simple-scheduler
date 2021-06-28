@@ -42,7 +42,7 @@ int main()
     arch_setupSystickTimer();
 
     uart_puts("Scheduler test\r\n");
-    job0 = sched_createJob(testJob0, NULL, 500, 500, 1, STATE_ACTIVE, "test 0");
+    /*job0 = sched_createJob(testJob0, NULL, 500, 500, 1, STATE_ACTIVE, "test 0");
     job1 = sched_createJob(testJob1, NULL, 500, 0, 3, STATE_ACTIVE, "test 1");
     job2 = sched_createJob(testJob2, NULL, 500, 1500, 3, STATE_ACTIVE, "test 2");
     job3 = sched_createJob(testJob3, NULL, 500, 2500, 4, STATE_ACTIVE, "test 3");
@@ -50,7 +50,7 @@ int main()
     sched_startJob(&sched0, &job0);
     sched_startJob(&sched0, &job1);
     sched_startJob(&sched0, &job2);
-    sched_startJob(&sched0, &job3);
+    sched_startJob(&sched0, &job3);*/
 
     arch_startSystickTimer();
     arch_ENABLE_INTERRUPTS();
